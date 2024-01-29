@@ -8,9 +8,9 @@ class DB {
         if (!DB::$db) {
             try {
                 DB::$db = new PDO(
-                    'mysql:dbname='.DB_NAME.';host='.DB_HOST.';charset=utf8mb4;',
-                    DB_USER,
-                    DB_PASS,
+                    'mysql:dbname=mydatabase;host=mysql;port=3306;charset=utf8mb4;',
+                    'myuser',
+                    'mypassword',
                     [PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC]
                 );
             } catch (PDOException $e) {

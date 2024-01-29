@@ -157,6 +157,68 @@ let common = {
             html('table', result.html);
         });
     },
+
+    //users
+
+    user_edit_window: (user_id, e) => {
+        // actions
+        cancel_event(e);
+        common.menu_popup_hide_all('all');
+        // vars
+        let data = {user_id: user_id};
+        let location = {dpt: 'user', act: 'edit_window'};
+        // call
+        request({location: location, data: data}, (result) => {
+            common.modal_show(400, result.html);
+        });
+    },
+
+    user_delete: (user_id, e) => {
+        // actions
+        cancel_event(e);
+        common.menu_popup_hide_all('all');
+        // vars
+        let data = {user_id: user_id};
+        let location = {dpt: 'user', act: 'delete'};
+        // call
+        request({location: location, data: data}, (result) => {
+        });
+    },
+
+    user_edit_update: (
+        user_id = 0,
+        first_name,
+        last_name,
+        phone,
+        email,
+        plot_id
+    ) => {
+        // vars
+        let data = {
+            user_id: user_id,
+            first_name: first_name,
+            last_name: last_name,
+            phone: phone,
+            email: email,
+            plot_id: plot_id,
+            offset: global.offset
+        };
+
+        let $values_to_check = [first_name, last_name, phone, email];
+        for (let value of $values_to_check) {
+            if (value[0] === '') {
+                return;
+            }
+        }
+
+        let location = {dpt: 'user', act: 'edit_update'};
+        // call
+        request({location: location, data: data}, (result) => {
+            common.modal_hide();
+            html('table', result.html);
+        });
+    },
+
 }
 
 add_event(document, 'DOMContentLoaded', common.init);
